@@ -3,6 +3,8 @@ import CharCounter from "./charCounter";
 import Passwordmatch from "./PasswordMatch";
 import DisableSubmit from "./DisableSubmit";
 import DesignerTool from "./DesignerTool";
+import Todo from "./Todo-App/todo";
+
 export default function App() {
   return (
     <div className="App">
@@ -11,6 +13,7 @@ export default function App() {
       <Passwordmatch />
       <DisableSubmit />
       <DesignerTool />
+      <Todo />
     </div>
   );
 }
