@@ -5,32 +5,42 @@ import { v4 as uuidv4 } from "uuid";
 export default function Todo() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
-  function clickHandler() {
-    setTodos((prevTodos) => [
-      {
-        ...prevTodos,
-        id: uuidv4(),
-        todos: input,
-        isDone: false
-      }
-    ]);
+
+  function addTodo() {
+    const newItem = {
+      id: uuidv4(),
+      name: input,
+      isDone: false
+    };
+    setTodos((prevTodos) => [...prevTodos, newItem]);
+    console.log(todos);
   }
   function strikethrough(id) {
-    todos.isDone ? false : true;
+    const changedTodos = todos.map((item) =>
+      item.id === id ? { ...item, isDone: !item.isDone } : item
+    );
+
+    setTodos(changedTodos);
+    console.log(changedTodos);
   }
+
   return (
     <div>
       <h2>Todo App</h2>
-      <input type="text" onChange={(e) => setInput(e.target.value)} />
-      <button onClick={clickHandler}>Add Todo</button>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={() => addTodo()}>Add Todo</button>
       <ul>
         {" "}
         {todos.map((todo) => (
           <li
-            onClick={() => strikethrough()}
-            style={{ textDecoration: isDone ? "line-through" : "none" }}
+            onClick={() => strikethrough(todo.id)}
+            style={{ textDecoration: todo.isDone ? "line-through" : "none" }}
           >
-            {todo}
+            {todo.name}
           </li>
         ))}
       </ul>
